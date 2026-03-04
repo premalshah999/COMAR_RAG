@@ -18,8 +18,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
 sdist/
 var/
@@ -30,6 +28,10 @@ wheels/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Python lib/ (but not frontend/src/lib/)
+/lib/
+lib64/
 
 # Node
 node_modules/

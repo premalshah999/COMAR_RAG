@@ -43,15 +43,26 @@ function MoonIcon() {
   );
 }
 
-export function TopBar({ conversation, onHome, isDark, onToggleTheme }: Props) {
+export function TopBar({ conversation, health, onHome, isDark, onToggleTheme }: Props) {
   const title = conversation.title === "New conversation" && conversation.messages.length === 0
     ? "New conversation"
     : conversation.title;
+
+  const statusClass = health
+    ? health.status === "ok" ? "ok" : "err"
+    : "";
+  const statusLabel = health
+    ? `${health.qdrant_points.toLocaleString()} vectors · ${health.llm_model}`
+    : "connecting…";
 
   return (
     <div className="topbar">
       <div className="topbar-left">
         <span className="topbar-title">{title}</span>
+        <span className="topbar-status">
+          <span className={`status-dot ${statusClass}`} />
+          {statusLabel}
+        </span>
       </div>
       <div className="topbar-actions">
         <button className="icon-btn" onClick={onHome} title="Back to home">
