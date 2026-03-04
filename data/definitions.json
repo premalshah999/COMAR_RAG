@@ -1,0 +1,14 @@
+{
+  "true vapor pressure (tvp)": {
+    "definition_text": "\"True vapor pressure (TVP)\" the vapor pressure of a material at storage temperature, where storage temperature is the maximum monthly average temperature of the material or 77°F (25°C), whichever is the higher. (49) “Typical ozone season day (TOSD)” means a day typical of that period of the year during which conditions for photochemical ozone formation are most favorable, which is generally during sustained periods of direct sunlight (that is, long days, little cloud cover) and warm temperatures. (50) “Unconfined source” means an installation that causes emissions which are not enclosed in a stack, duct, hood, flue, or",
+    "source_citation": "COMAR 26.11.01.01"
+  },
+  "12-month rolling average emission rate": {
+    "definition_text": "\"12-month rolling average emission rate\" an average emission rate determined at the conclusion of each month by calculating: (a) For each hour that the unit is operating, the arithmetic average of all hourly emission rates for each operating day of a given calendar month to obtain a monthly average; and (b) The arithmetic monthly average, as determined in §B(4)(a) of this regulation , of the previous 12 calendar months.",
+    "source_citation": "COMAR 26.11.27.01"
+  },
+  "100-year flood": {
+    "definition_text": "\"100-year flood\" a flood that has a 1-percent chance of being equalled or exceeded in any given year. (7) “Subdivision” means any county, including Baltimore City. The term “subdivision” also means any incorporated municipality which has the authority to adopt and enforce land use and control measures for the areas within its jurisdiction. (8) “Ultimate development” means the anticipated development during the expected useful life of the capital project.",
+    "source_citation": "COMAR 26.17.05.01"
+  }
+}

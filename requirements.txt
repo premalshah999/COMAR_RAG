@@ -1,0 +1,41 @@
+# Vector database
+qdrant-client>=1.9.0
+
+# LangChain ecosystem
+langchain>=0.2.0
+langchain-anthropic>=0.1.0
+langchain-openai>=0.1.0
+langgraph>=0.1.0
+
+# XML parsing
+lxml>=5.2.0
+
+# HTTP & data
+requests>=2.31.0
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+pydantic>=2.7.0
+pydantic-settings>=2.2.0
+tiktoken>=0.7.0
+openai>=1.30.0
+
+# Embeddings
+sentence-transformers>=3.0.0
+FlagEmbedding>=1.2.0
+torch>=2.2.0
+
+# Graph DB
+neo4j>=5.19.0
+networkx>=3.3
+
+# Serving
+fastapi>=0.111.0
+uvicorn>=0.29.0
+
+# Evaluation
+ragas>=0.1.9
+deepeval>=0.21.0
+
+# Testing
+pytest>=8.2.0
+pytest-asyncio>=0.23.0
