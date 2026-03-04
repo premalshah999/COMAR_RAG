@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import threading
 import time
 from uuid import uuid4
@@ -24,21 +25,53 @@ try:
 except Exception:
     _verifier = None
 
-# ── Bounded conversation store with LRU eviction ────────────────────────────
-_MAX_CONVERSATIONS = 200
+# ── Bounded conversation store with LRU eviction + TTL ──────────────────────
+_MAX_CONVERSATIONS = int(os.getenv("MAX_CONVERSATIONS", "500"))
+_CONVERSATION_TTL = int(os.getenv("CONVERSATION_TTL", "3600"))  # 1 hour default
 _conversations: dict[str, dict] = {}  # {conv_id: {"messages": [...], "ts": float}}
 _conv_lock = threading.Lock()
+_last_cleanup = time.time()
+_CLEANUP_INTERVAL = 300  # Clean up expired entries every 5 minutes
+
+
+def _cleanup_expired() -> int:
+    """Remove conversations older than TTL. Returns count of removed entries."""
+    global _last_cleanup
+    now = time.time()
+    
+    # Only run cleanup periodically
+    if now - _last_cleanup < _CLEANUP_INTERVAL:
+        return 0
+    
+    _last_cleanup = now
+    cutoff = now - _CONVERSATION_TTL
+    expired = [cid for cid, entry in _conversations.items() if entry["ts"] < cutoff]
+    
+    for cid in expired:
+        del _conversations[cid]
+    
+    if expired:
+        logger.debug("Cleaned up %d expired conversations", len(expired))
+    
+    return len(expired)
 
 
 def _get_history(conv_id: str) -> list[dict]:
     with _conv_lock:
+        # Periodic cleanup of expired entries
+        _cleanup_expired()
+        
         entry = _conversations.get(conv_id)
         if entry:
             entry["ts"] = time.time()
             return entry["messages"]
+        
+        # LRU eviction if at capacity
         if len(_conversations) >= _MAX_CONVERSATIONS:
             oldest = min(_conversations, key=lambda k: _conversations[k]["ts"])
             del _conversations[oldest]
+            logger.debug("Evicted oldest conversation %s (LRU)", oldest[:8])
+        
         _conversations[conv_id] = {"messages": [], "ts": time.time()}
         return _conversations[conv_id]["messages"]
 
